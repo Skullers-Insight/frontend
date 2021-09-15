@@ -30,7 +30,7 @@ const Album = objectType({
     t.string("name");
     t.string("year");
     t.field("artist", {
-      type: Artist,
+      type: "Artist",
       async resolve(_album, _args, ctx) {
         const artist = await ctx.prisma.artist.findFirst();
         // The ! tells TypeScript to trust us, it won't be null
