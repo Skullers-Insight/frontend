@@ -1,69 +1,16 @@
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer } from "apollo-server-micro";
 import Cors from "micro-cors";
-import DataLoader from "dataloader";
-import { GraphQLResolveInfo } from "graphql";
-import { CreateUserArgs } from "./dto/args";
-import { AppContext } from "./dto/shared";
+import { schema } from "../../apollo/schema";
+import { context } from "../../apollo/context";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
-const typeDefs = gql`
-  type Query {
-    albums(first: Int = 25, skip: Int = 0): [Album!]!
-  }
-  type Artist {
-    id: ID!
-    name: String!
-    url: String!
-    albums(first: Int = 25, skip: Int = 0): [Album!]!
-  }
-  type Album {
-    id: ID!
-    name: String!
-    year: String!
-    artist: Artist!
-  }
-`;
+const cors = Cors();
 
-const resolvers = {
-  Query: {
-    albums: (
-      _parent: undefined,
-      args: CreateUserArgs,
-      _context: AppContext
-    ) => {},
-  },
-
-  Mutation: {
-    createUser: (
-      parent: undefined,
-      args: CreateUserArgs,
-      context: AppContext,
-      info: GraphQLResolveInfo
-    ) => {
-      console.log(parent);
-      return context.userService.createUser(args.email, args.password);
-    },
-  },
-};
-
-const loader = {
-  artist: new DataLoader((ids: ReadonlyArray<string>) => {
-    return new Promise(() => {});
-  }),
-};
-
-const cors = Cors({
-  allowMethods: ["GET", "POST", "OPTIONS"],
+const server = new ApolloServer({
+  schema,
+  context,
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
-
-const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: () => {
-    return { loader };
-  },
-});
-
-const handler = apolloServer.createHandler({ path: "/api/graphql" });
 
 export const config = {
   api: {
@@ -71,4 +18,12 @@ export const config = {
   },
 };
 
-export default cors(handler);
+module.exports = server.start().then(() =>
+  cors((req, res) => {
+    if (req.method === "OPTIONS") {
+      res.end();
+      return;
+    }
+    return server.createHandler({ path: "/api/graphql" })(req, res);
+  })
+);
