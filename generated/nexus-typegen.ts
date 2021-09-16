@@ -4,23 +4,9 @@
  */
 
 
-import type { core } from "nexus"
-declare global {
-  interface NexusGenCustomInputMethods<TypeName extends string> {
-    /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-     */
-    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
-  }
-}
-declare global {
-  interface NexusGenCustomOutputMethods<TypeName extends string> {
-    /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-     */
-    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
-  }
-}
+import type { Context } from "./../apollo/context"
+
+
 
 
 declare global {
@@ -39,23 +25,20 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
-  DateTime: any
 }
 
 export interface NexusGenObjects {
-  Mutation: {};
-  Post: { // root type
-    content?: string | null; // String
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
-    title?: string | null; // String
-  }
-  Query: {};
-  User: { // root type
-    email?: string | null; // String
+  Album: { // root type
     id?: number | null; // Int
     name?: string | null; // String
+    year?: string | null; // String
   }
+  Artist: { // root type
+    id?: number | null; // Int
+    name?: string | null; // String
+    url?: string | null; // String
+  }
+  Query: {};
 }
 
 export interface NexusGenInterfaces {
@@ -69,85 +52,43 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post'] | null; // Post
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User'] | null; // User
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
-    id: number | null; // Int
-    published: boolean | null; // Boolean
-    title: string | null; // String
-  }
-  Query: { // field return type
-    drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    post: NexusGenRootTypes['Post'] | null; // Post
-  }
-  User: { // field return type
-    email: string | null; // String
+  Album: { // field return type
+    artist: NexusGenRootTypes['Artist'] | null; // Artist
     id: number | null; // Int
     name: string | null; // String
-    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    year: string | null; // String
+  }
+  Artist: { // field return type
+    id: number | null; // Int
+    name: string | null; // String
+    url: string | null; // String
+  }
+  Query: { // field return type
+    albums: Array<NexusGenRootTypes['Album'] | null> | null; // [Album]
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Mutation: { // field return type name
-    createDraft: 'Post'
-    deletePost: 'Post'
-    publish: 'Post'
-    signupUser: 'User'
-  }
-  Post: { // field return type name
-    author: 'User'
-    content: 'String'
-    id: 'Int'
-    published: 'Boolean'
-    title: 'String'
-  }
-  Query: { // field return type name
-    drafts: 'Post'
-    feed: 'Post'
-    filterPosts: 'Post'
-    post: 'Post'
-  }
-  User: { // field return type name
-    email: 'String'
+  Album: { // field return type name
+    artist: 'Artist'
     id: 'Int'
     name: 'String'
-    posts: 'Post'
+    year: 'String'
+  }
+  Artist: { // field return type name
+    id: 'Int'
+    name: 'String'
+    url: 'String'
+  }
+  Query: { // field return type name
+    albums: 'Album'
   }
 }
 
 export interface NexusGenArgTypes {
-  Mutation: {
-    createDraft: { // args
-      authorEmail?: string | null; // String
-      content?: string | null; // String
-      title: string; // String!
-    }
-    deletePost: { // args
-      postId?: string | null; // String
-    }
-    publish: { // args
-      postId?: string | null; // String
-    }
-    signupUser: { // args
-      email: string; // String!
-      name?: string | null; // String
-    }
-  }
   Query: {
-    filterPosts: { // args
-      searchString?: string | null; // String
-    }
-    post: { // args
-      postId: string; // String!
+    albums: { // args
+      first?: number | null; // Int
     }
   }
 }
@@ -183,7 +124,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
