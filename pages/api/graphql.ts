@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-micro";
 import cors from "micro-cors";
 import { NextApiHandler } from "next";
 import { schema } from "../../apollo/schema";
-import { context } from "../../context";
+import { context } from "../../apollo/context";
 
 export const config = {
   api: {

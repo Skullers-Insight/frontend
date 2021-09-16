@@ -8,21 +8,21 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
-model User {
-  email String  @unique
-  id    Int     @default(autoincrement()) @id
-  name  String?
-  posts Post[]
+model Album {
+  id       Int    @id @default(autoincrement())
+  name     String
+  year     String
+  artist   Artist @relation(fields: [artistId], references: [id])
+  artistId Int
 }
 
-model Post {
-  authorId  Int?
-  content   String?
-  id        Int     @default(autoincrement()) @id
-  published Boolean @default(false)
-  title     String
-  author    User?   @relation(fields: [authorId], references: [id])
+model Artist {
+  id     Int     @id @default(autoincrement())
+  name   String
+  url    String
+  albums Album[]
 }

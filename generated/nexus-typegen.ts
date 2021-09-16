@@ -65,6 +65,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     albums: Array<NexusGenRootTypes['Album'] | null> | null; // [Album]
+    artist: Array<NexusGenRootTypes['Artist'] | null> | null; // [Artist]
   }
 }
 
@@ -82,12 +83,16 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     albums: 'Album'
+    artist: 'Artist'
   }
 }
 
 export interface NexusGenArgTypes {
   Query: {
     albums: { // args
+      first?: number | null; // Int
+    }
+    artist: { // args
       first?: number | null; // Int
     }
   }

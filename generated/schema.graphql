@@ -17,4 +17,5 @@ type Artist {
 
 type Query {
   albums(first: Int): [Album]
+  artist(first: Int): [Artist]
 }
