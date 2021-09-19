@@ -2,20 +2,13 @@
 ### Do not make changes to this file directly
 
 
-type Album {
-  artist: Artist
-  id: Int
-  name: String
-  year: String
-}
-
-type Artist {
-  id: Int
-  name: String
-  url: String
-}
-
 type Query {
-  albums(first: Int): [Album]
-  artist(first: Int): [Artist]
+  user(first: Int): [User]
+}
+
+type User {
+  email: String
+  id: String
+  image: String
+  name: String
 }

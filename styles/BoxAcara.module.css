@@ -1,0 +1,13 @@
+.boxAcara {
+  background-color: black;
+  padding: 1rem;
+  margin: 1rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cta {
+  background-color: white;
+  color: black;
+}

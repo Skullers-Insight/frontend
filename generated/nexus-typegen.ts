@@ -28,17 +28,13 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Album: { // root type
-    id?: number | null; // Int
-    name?: string | null; // String
-    year?: string | null; // String
-  }
-  Artist: { // root type
-    id?: number | null; // Int
-    name?: string | null; // String
-    url?: string | null; // String
-  }
   Query: {};
+  User: { // root type
+    email?: string | null; // String
+    id?: string | null; // String
+    image?: string | null; // String
+    name?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -52,47 +48,32 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Album: { // field return type
-    artist: NexusGenRootTypes['Artist'] | null; // Artist
-    id: number | null; // Int
-    name: string | null; // String
-    year: string | null; // String
-  }
-  Artist: { // field return type
-    id: number | null; // Int
-    name: string | null; // String
-    url: string | null; // String
-  }
   Query: { // field return type
-    albums: Array<NexusGenRootTypes['Album'] | null> | null; // [Album]
-    artist: Array<NexusGenRootTypes['Artist'] | null> | null; // [Artist]
+    user: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  User: { // field return type
+    email: string | null; // String
+    id: string | null; // String
+    image: string | null; // String
+    name: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Album: { // field return type name
-    artist: 'Artist'
-    id: 'Int'
-    name: 'String'
-    year: 'String'
-  }
-  Artist: { // field return type name
-    id: 'Int'
-    name: 'String'
-    url: 'String'
-  }
   Query: { // field return type name
-    albums: 'Album'
-    artist: 'Artist'
+    user: 'User'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'String'
+    image: 'String'
+    name: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Query: {
-    albums: { // args
-      first?: number | null; // Int
-    }
-    artist: { // args
+    user: { // args
       first?: number | null; // Int
     }
   }

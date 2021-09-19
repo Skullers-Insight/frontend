@@ -1,60 +1,32 @@
-import { makeSchema, queryType, objectType, nonNull, intArg } from "nexus";
+import { makeSchema, queryType, objectType, intArg } from "nexus";
 import path from "path";
 
-const Artist = objectType({
-  name: "Artist",
+const User = objectType({
+  name: "User",
   definition(t) {
-    t.int("id");
+    t.string("id");
     t.string("name");
-    t.string("url");
-  },
-});
-
-const Album = objectType({
-  name: "Album",
-  definition(t) {
-    t.int("id");
-    t.string("name");
-    t.string("year");
-    t.field("artist", {
-      type: Artist,
-      async resolve(album, _args, _ctx) {
-        const artist = await _ctx.prisma.artist.findFirst({
-          where: {
-            id: (album as any).artistId,
-          },
-        });
-        return artist!;
-      },
-    });
+    t.string("email");
+    t.string("image");
   },
 });
 
 const Query = queryType({
   definition(t) {
-    t.list.field("albums", {
-      type: Album,
+    t.list.field("user", {
+      type: User,
       args: {
         first: intArg(),
       },
       resolve(_root, { first }, ctx) {
-        return ctx.prisma.album.findMany({ take: first as number | undefined });
-      },
-    });
-    t.list.field("artist", {
-      type: Artist,
-      args: {
-        first: "Int",
-      },
-      resolve(_root, args, ctx) {
-        return ctx.prisma.artist.findMany({ take: (args as any).first });
+        return ctx.prisma.user.findMany({ take: first as number | undefined });
       },
     });
   },
 });
 
 export const schema = makeSchema({
-  types: [Query, Artist, Album],
+  types: [Query, User],
   plugins: [],
   outputs: {
     typegen: path.join(process.cwd(), "generated/nexus-typegen.ts"),
