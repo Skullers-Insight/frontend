@@ -4,9 +4,10 @@ import path from "path";
 const User = objectType({
   name: "User",
   definition(t) {
-    t.int("id");
+    t.string("id");
     t.string("name");
-    t.string("password");
+    t.string("email");
+    t.string("image");
   },
 });
 
