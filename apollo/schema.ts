@@ -1,5 +1,20 @@
-import { makeSchema, queryType, objectType, intArg } from "nexus";
+import { DateTimeResolver } from "graphql-scalars";
+import {
+  asNexusMethod,
+  intArg,
+  makeSchema,
+  mutationType,
+  objectType,
+  queryType,
+  stringArg,
+} from "nexus";
 import path from "path";
+
+// const isAuthenticated = rule({ cache: "contextual" })(
+//   async (_parent, _args, { req }, _info) => {
+//     return Boolean(session);
+//   }
+// );
 
 const User = objectType({
   name: "User",
@@ -25,8 +40,32 @@ const Query = queryType({
   },
 });
 
-export const schema = makeSchema({
-  types: [Query, User],
+const Mutation = mutationType({
+  definition(t) {
+    t.list.field("createUser", {
+      type: User,
+      args: {
+        name: stringArg(),
+        email: stringArg(),
+        image: stringArg(),
+      },
+      resolve(_root, { name, email, image }, ctx) {
+        return ctx.prisma.user.create({
+          data: {
+            name,
+            email,
+            image,
+          },
+        });
+      },
+    });
+  },
+});
+
+export const GQLDate = asNexusMethod(DateTimeResolver, "date");
+
+const baseSchema = makeSchema({
+  types: [Query, User, GQLDate, Mutation],
   plugins: [],
   outputs: {
     typegen: path.join(process.cwd(), "generated/nexus-typegen.ts"),
@@ -45,3 +84,5 @@ export const schema = makeSchema({
     ],
   },
 });
+
+export const schema = baseSchema;
