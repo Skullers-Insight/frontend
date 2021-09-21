@@ -1,13 +1,39 @@
-.boxAcara {
-  background-color: black;
-  padding: 1rem;
-  margin: 1rem;
-  color: white;
-  display: flex;
-  justify-content: space-between;
+.box {
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+  margin: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
 }
 
-.cta {
-  background-color: white;
+.btn {
+  /*warna*/
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgb(246, 216, 252) 0%, rgba(208,169,247,1) 15%, rgba(187,129,243,1) 30%, rgba(137,35,234,1) 100%);
+  /*kotak*/
+  width: 100px; /*sesuaikan*/
+  height: 40px; /*sesuaikan*/
+  padding: 10px;
+  border: none;
+  border-radius: 20px; /*height/2*/
+  display:block;
+  /*posisi*/
+  margin: 0 auto;
+  /*text*/
+  color: white;
+  text-align: center;
+}
+
+.gbr {
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.text {
   color: black;
+  text-align: justify;
+  margin-right: 20px;
+  margin-left: 20px;
 }
