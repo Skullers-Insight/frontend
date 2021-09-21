@@ -42,7 +42,7 @@ const Query = queryType({
 
 const Mutation = mutationType({
   definition(t) {
-    t.list.field("createUser", {
+    t.nonNull.field("createUser", {
       type: User,
       args: {
         name: stringArg(),
@@ -50,13 +50,14 @@ const Mutation = mutationType({
         image: stringArg(),
       },
       resolve(_root, { name, email, image }, ctx) {
-        return ctx.prisma.user.create({
+        const user = ctx.prisma.user.create({
           data: {
             name,
             email,
             image,
           },
         });
+        return user;
       },
     });
   },

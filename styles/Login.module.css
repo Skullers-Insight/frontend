@@ -1,0 +1,44 @@
+.base {
+  background: rgba(137, 36, 234, 0.41);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.input {
+  border: solid 1px white;
+  background-color: transparent;
+  border-radius: 5px;
+  width: 100%;
+  padding: 0.6rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.cta {
+  background: white;
+  color: inherit;
+  border: none;
+  padding: 1rem;
+  border-radius: 25px;
+  margin: 0 auto;
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
