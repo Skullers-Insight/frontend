@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-import EmailProvider from "next-auth/providers/email";
+import Providers from "next-auth/providers";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../prisma";
 
 export default NextAuth({
   providers: [
-    EmailProvider({
+    Providers.Email({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -17,5 +17,9 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
+  pages: {
+    signIn: "/auth/signin",
+  },
+  database: process.env.DATABASE_URL,
   adapter: PrismaAdapter(prisma),
 });

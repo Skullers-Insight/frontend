@@ -17,14 +17,24 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.12.3",
+<<<<<<< HEAD
+    "@material-ui/icons": "^4.11.2",
+    "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "@next-auth/prisma-adapter": "^0.5.2-next.10",
+=======
+    "@mui/material": "^5.0.0",
+    "@next-auth/prisma-adapter": "^0.5.4",
+>>>>>>> a350f4da3c92d2cdb7c6a0ead8ef785c2d304570
     "@nexus/schema": "^0.20.1",
     "@prisma/client": "^3.0.2",
     "apollo-server-micro": "^3.0.0",
+    "bootstrap": "^5.1.0",
     "dataloader": "^2.0.0",
     "graphql": "^15.5.3",
+    "graphql-middleware": "^6.1.6",
     "graphql-scalars": "^1.10.1",
+    "graphql-shield": "^7.5.0",
     "graphql-tools": "^8.2.0",
     "jose": "^3.17.0",
     "micro": "^9.3.4",
@@ -36,7 +46,10 @@
     "node-jose-tools": "^0.9.3",
     "nodemailer": "^6.6.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-bootstrap": "^2.0.0-beta.6",
+    "react-dom": "17.0.2",
+    "react-particles-js": "^3.5.3",
+    "tsparticles": "^1.35.1"
   },
   "devDependencies": {
     "@types/micro-cors": "^0.1.2",

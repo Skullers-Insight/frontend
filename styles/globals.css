@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.tsparticles-canvas-el {
+  max-height: 100vh;
+}
